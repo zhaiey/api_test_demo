@@ -1,0 +1,22 @@
+denglu1:
+  base: 'http://192.168.5.47:32000'
+  endpoint: "/API/api/v1/auth/login"
+  method: "GET"
+  header :
+  data:
+    {
+      "mobile":"18221731234",
+      "password":"e10adc3949ba59abbe56e057f20f883e",
+      "loginType":0,
+      "random":"XFSVhQ",
+      "code":$.code
+    }
+  expected_status_code: 200
+  extract:
+    url:  $.token
+  expected_response:
+    msg: "success"
+    retcode: 0
+
+
+# ... 其他测试用例数据
