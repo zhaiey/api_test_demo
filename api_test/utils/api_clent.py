@@ -9,7 +9,7 @@ import yaml
 import os
 
 # 获取当前脚本的绝对路径
-from utils.get_token import mm
+from api_test.utils.get_token import mm
 current_dir = os.path.dirname(os.path.abspath(__file__)) #当前目录
 parent_dir = os.path.dirname(current_dir)#父级目录
 yaml_file_path = os.path.join(parent_dir, 'data', 'changhai_denglu.yaml') #获取yaml绝对路径

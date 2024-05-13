@@ -1,22 +1,44 @@
-denglu1:
-  base: 'http://192.168.5.47:32000'
-  endpoint: "/API/api/v1/auth/login"
-  method: "GET"
-  header :
+info: &info
+  host: ${{host()}}
+  url: /api/sys/operation/audit/record/qqqq/
+  method: get
+
+record_01:
+  <<: *info
+  is_run: true
+  title: "获取系列"
+  headers:
+    Content-Type: application/json
+    Authorization: $.depends_data.data
+    cookie:
+  request_type: params
   data:
-    {
-      "mobile":"18221731234",
-      "password":"e10adc3949ba59abbe56e057f20f883e",
-      "loginType":0,
-      "random":"XFSVhQ",
-      "code":$.code
-    }
-  expected_status_code: 200
-  extract:
-    url:  $.token
-  expected_response:
-    msg: "success"
-    retcode: 0
+    body:
+    query:
+      start: 0
+      limit: 10
+      filter: ''
+      sort: ''
+    file:
+  encode:
+    - $.data.body.filter
+    - $.data.body.sort
+  is_depend: true
+  depends_case:
+    - case_id: login_01
+      depends_data:
+       - type: response
+         data: $.data.access_token
+  setup_sql:
+  set_cache:
+    - name:
+      type:
+      json_path:
+  assert_data:
+    assert_type: response
+    actual: $.message
+    type: ==
+    expect: "success"
+  assert_sql:
 
 
-# ... 其他测试用例数据
